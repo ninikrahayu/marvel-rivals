@@ -27,34 +27,171 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e0dfe6 0%, #c8c7cf 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: 
+                repeating-conic-gradient(
+                    from 0deg at 50% 50%,
+                    transparent 0deg,
+                    rgba(255, 255, 255, 0.3) 2deg,
+                    transparent 4deg,
+                    transparent 8deg
+                );
+            animation: rotate 60s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: #3c3846;
+            padding: 40px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 440px;
+        }
+
+        h1 {
+            color: #f4d03f;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 20px;
+            background: #6b6679;
+            border: 2px solid #f4d03f;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input:focus {
+            background: #7a7687;
+            border-color: #f4d03f;
+        }
+
+        button {
+            width: auto;
+            padding: 12px 40px;
+            background: #f4d03f;
+            border: none;
+            border-radius: 50px;
+            color: #3c3846;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 25px auto 0;
+        }
+
+        button:hover {
+            background: #f5e04a;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .link a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .link a:hover {
+            color: #f4d03f;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 25px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            input {
+                padding: 12px 18px;
+                font-size: 13px;
+            }
+            
+            button {
+                padding: 10px 30px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-white min-h-screen">
-    <div class="flex items-center justify-center min-h-screen p-4 sm:p-6 md:p-8">
-        <div class="bg-[#D9D9D9] rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 w-full max-w-sm sm:max-w-md">
-            <h1 class="text-3xl sm:text-4xl font-bold  mb-6 sm:mb-8">LOGIN</h1>
+<body>
+    <div class="container">
+        <h1>LOGIN</h1>
 
-            <form class="space-y-3 sm:space-y-4" action="login.php" method="POST">
-                <input type="text" name="username" placeholder="Username"
-                    class="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-full bg-[#C0C0C0] placeholder-black text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-500" required>
+        <form action="login.php" method="POST">
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
 
-                <input type="password" name="password" placeholder="Password"
-                    class="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-full bg-[#C0C0C0] placeholder-black text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-500" required>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
 
-                <div class="flex flex-col items-center pt-3 sm:pt-4 space-y-2 sm:space-y-3">
-                    <button type="submit"
-                        class="px-6 sm:px-8 py-2.5 sm:py-3 bg-[#C0C0C0] hover:bg-gray-500 rounded-full text-black font-medium transition text-sm sm:text-base">
-                        MASUK
-                    </button>
+            <button type="submit">MASUK</button>
+        </form>
 
-                    <a href="register.php" class="text-black text-sm hover:underline">
-                      Register
-                    </a>
-                </div>
-            </form>
+        <div class="link">
+            <a href="register.php">Register</a>
         </div>
     </div>
 
