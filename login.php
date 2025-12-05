@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             position: absolute;
             width: 200%;
             height: 200%;
-            background: 
+            background:
                 repeating-conic-gradient(
                     from 0deg at 50% 50%,
                     transparent 0deg,
@@ -60,13 +60,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     transparent 8deg
                 );
             animation: rotate 60s linear infinite;
+            z-index: 0;
         }
 
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
+        
+        .logo-container {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 2;
+        }
 
+        .marvel-logo {
+            width: 280px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+        }
+    
         .container {
             position: relative;
             z-index: 1;
@@ -76,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             width: 90%;
             max-width: 440px;
+            margin-top: 90px;
         }
 
         h1 {
@@ -156,16 +173,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .container {
                 padding: 30px 25px;
             }
-            
+
             h1 {
                 font-size: 28px;
             }
-            
+
             input {
                 padding: 12px 18px;
                 font-size: 13px;
             }
-            
+
             button {
                 padding: 10px 30px;
                 font-size: 14px;
@@ -175,6 +192,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <div class="logo-container">
+        <img src="assets/logo/marvel-logo.png" class="marvel-logo">
+    </div>
+
     <div class="container">
         <h1>LOGIN</h1>
 

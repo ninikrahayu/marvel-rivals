@@ -19,11 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Marvel Rivals - Register</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         * {
@@ -48,15 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             position: absolute;
             width: 200%;
             height: 200%;
-            background: 
-                repeating-conic-gradient(
-                    from 0deg at 50% 50%,
-                    transparent 0deg,
-                    rgba(255, 255, 255, 0.3) 2deg,
-                    transparent 4deg,
-                    transparent 8deg
-                );
+            background: repeating-conic-gradient(
+                from 0deg at 50% 50%,
+                transparent 0deg,
+                rgba(255, 255, 255, 0.3) 2deg,
+                transparent 4deg,
+                transparent 8deg
+            );
             animation: rotate 60s linear infinite;
+            z-index: 0;
         }
 
         @keyframes rotate {
@@ -64,15 +63,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             to { transform: rotate(360deg); }
         }
 
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 5;
+        }
+
+        .marvel-logo {
+            width: 250px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+        }
+
         .container {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             background: #3c3846;
             padding: 40px 50px;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             width: 90%;
             max-width: 440px;
+            margin-top: 120px;
         }
 
         h1 {
@@ -172,16 +187,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <div class="logo-container">
+        <img src="assets/logo/marvel-logo.png" class="marvel-logo">
+    </div>
+
     <div class="container">
         <h1>REGISTER</h1>
 
         <form action="register.php" method="POST">
             <div class="form-group">
-                <input type="email" name="email" placeholder="email" required>
+                <input type="email" name="email" placeholder="Email" required>
             </div>
 
             <div class="form-group">
-                <input type="text" name="username" placeholder="username" required>
+                <input type="text" name="username" placeholder="Username" required>
             </div>
 
             <div class="form-group">
@@ -189,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="form-group">
-                <input type="password" name="confirm_password" placeholder="confirm password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
             </div>
 
             <button type="submit">Buat akun</button>
@@ -199,6 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="login.php">Sudah punya akun? Login di sini</a>
         </div>
     </div>
+
 
     <?php if ($message): ?>
     <script>
