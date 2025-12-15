@@ -36,7 +36,7 @@ CREATE TABLE `characters` (
   `base_energy` int DEFAULT '100',
   `card_image` varchar(255) DEFAULT NULL,
   `portrait_image` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `characters`
@@ -62,7 +62,7 @@ CREATE TABLE `levels` (
   `background_image` varchar(255) DEFAULT NULL,
   `card_image` varchar(255) DEFAULT NULL,
   `enemy_character_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `levels`
@@ -86,7 +86,7 @@ CREATE TABLE `skills` (
   `damage_value` int DEFAULT '100',
   `energy_cost` int DEFAULT '20',
   `video_url` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `skills`
@@ -126,7 +126,7 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
@@ -135,6 +135,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`) VALUES
 (1, 'heru', 'heru@mail.com', '$2y$10$qxPN63D3ldYuIs3e5zsxMu8/UDmyTVR6kSLpSeJ2fjnG8n.iDyZ0G', '2025-12-09 15:50:58'),
 (2, 'Ninik Rahayu', 'ninik@gmail.com', '$2y$10$8xSz6HMEZux.M0.vkrSnXeypY1xOvv8WnHObCRURiOk7cqfRtRHnO', '2025-12-15 02:47:59');
+=======
+(1, 'Ninik Rahayu', 'ninik@gmail.com', '$2y$10$8xSz6HMEZux.M0.vkrSnXeypY1xOvv8WnHObCRURiOk7cqfRtRHnO', '2025-12-15 02:47:59');
+>>>>>>> 668b7242c9914114bb280e8991393cbe19ce3318
 
 -- --------------------------------------------------------
 
@@ -147,7 +150,7 @@ CREATE TABLE `user_progress` (
   `user_id` int NOT NULL,
   `active_character_id` int DEFAULT NULL,
   `unlocked_level_id` int DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user_progress`

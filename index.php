@@ -125,6 +125,8 @@ $levelsResult = $conn->query($levelsQuery);
         .level-card.locked {
             cursor: not-allowed;
             border-color: #555; 
+            border-color: #555;
+
         }
 
         .level-card.locked .card-image {
@@ -139,6 +141,7 @@ $levelsResult = $conn->query($levelsQuery);
 
         .level-card.locked:hover {
             transform: none; 
+            transform: none;
             box-shadow: none;
         }
 

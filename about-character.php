@@ -47,6 +47,7 @@ if ($charId > 0) {
             border-radius: 25px; display: grid; gap: 35px; width: calc(100% - 80px);
             align-items: center; 
             grid-template-columns: 320px 1fr 500px; 
+            grid-template-columns: 320px 1fr 500px;
         }
 
         .content-wrapper-second {
@@ -54,6 +55,7 @@ if ($charId > 0) {
             border-radius: 25px; display: grid; gap: 35px; width: calc(100% - 80px);
             align-items: center;
             grid-template-columns: 500px 1fr 320px; 
+            grid-template-columns: 500px 1fr 320px;
         }
 
         .portrait {
@@ -81,7 +83,7 @@ if ($charId > 0) {
 
         @media (max-width: 1024px) {
             .content-wrapper, .content-wrapper-second { grid-template-columns: 1fr; }
-            .portrait { height: 400px; order: -1; } /* Gambar selalu di atas di mobile */
+            .portrait { height: 400px; order: -1; }
             .content-wrapper-second .char-title, .content-wrapper-second .description { text-align: left; }
         }
     </style>
@@ -100,13 +102,12 @@ if ($charId > 0) {
 
 <?php 
 $counter = 0; 
-
+$counter = 0;
 if ($result->num_rows > 0):
     while ($char = $result->fetch_assoc()):
         $counter++;
-        
         $skillQuery = $conn->query("SELECT * FROM skills WHERE character_id = " . $char['id']);
-        
+        $skillQuery = $conn->query("SELECT * FROM skills WHERE character_id = " . $char['id']);
         $isLayoutLeft = ($counter % 2 != 0); 
 ?>
 

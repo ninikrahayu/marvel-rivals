@@ -26,7 +26,7 @@ $charsResult = $conn->query($charsQuery);
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 
         body {
-            background: url('assets/backgrounds/character-bg.png') no-repeat center center fixed;
+            background: url('assets/backgrounds/character-bg.png') repeat fixed;
             background-size: cover;
             min-height: 100vh;
             overflow-x: hidden;
@@ -240,6 +240,7 @@ $charsResult = $conn->query($charsQuery);
             
             title.innerText = skillName;
             videoPlayer.src = videoUrl; 
+            videoPlayer.src = videoUrl;
             modal.style.display = 'flex';
             videoPlayer.play();
         }
@@ -251,6 +252,7 @@ $charsResult = $conn->query($charsQuery);
             modal.style.display = 'none';
             videoPlayer.pause();
             videoPlayer.src = ""; 
+            videoPlayer.src = "";
         }
 
         window.onclick = function (event) {
