@@ -113,6 +113,7 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             flex-direction: column; 
             justify-content: flex-end;
         }
+
         .card-img {
             position: absolute; 
             bottom: 0; 
@@ -151,6 +152,7 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             margin-bottom: 15px; 
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
+
         .bar-container { 
             margin-bottom: 12px; 
         }
@@ -304,6 +306,7 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
     </div>
 
     <div class="battle-area">
+ 
         <div class="battle-card">
             <div class="card-img" style="background-image: url('<?php echo $player['portrait_image']; ?>');"></div>
             <div class="card-gradient"></div>
@@ -362,10 +365,11 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
     </div>
     <script>
         const playerMaxHp = <?php echo $player['base_health']; ?>;
+
         const enemyMaxHp = Math.floor(<?php echo $levelData['enemy_hp']; ?> * 0.8);
+        
         const maxEnergy = 100;
-        const enemyMaxHp = Math.floor(<?php echo $levelData['enemy_hp']; ?> * 0.8);
-        const maxEnergy = 100;
+
         const heroSkills = <?php echo json_encode($playerSkills); ?>;
         const enemySkillsData = <?php echo json_encode($enemySkills); ?>;
 
@@ -488,8 +492,9 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
                 
                 const cost = parseInt(randomSkill.energy_cost);
                 const rawDamage = parseInt(randomSkill.damage_value);
+
                 enemyEnergy -= cost;
-                enemyEnergy -= cost;
+
                 damage = Math.floor(rawDamage * 0.8);
                 
                 console.log(`Enemy used ${randomSkill.skill_name}: ${damage} dmg (Base: ${rawDamage})`);

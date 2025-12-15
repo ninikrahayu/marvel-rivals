@@ -239,7 +239,6 @@ $charsResult = $conn->query($charsQuery);
             const title = document.getElementById('skillTitle');
             
             title.innerText = skillName;
-            videoPlayer.src = videoUrl; 
             videoPlayer.src = videoUrl;
             modal.style.display = 'flex';
             videoPlayer.play();
@@ -251,7 +250,6 @@ $charsResult = $conn->query($charsQuery);
             
             modal.style.display = 'none';
             videoPlayer.pause();
-            videoPlayer.src = ""; 
             videoPlayer.src = "";
         }
 

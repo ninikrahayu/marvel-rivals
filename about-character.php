@@ -46,7 +46,6 @@ if ($charId > 0) {
             max-width: 1200px; margin: 40px auto; background: #ffffff; padding: 35px;
             border-radius: 25px; display: grid; gap: 35px; width: calc(100% - 80px);
             align-items: center; 
-            grid-template-columns: 320px 1fr 500px; 
             grid-template-columns: 320px 1fr 500px;
         }
 
@@ -54,7 +53,6 @@ if ($charId > 0) {
             max-width: 1200px; margin: 40px auto; background: #ffffff; padding: 35px;
             border-radius: 25px; display: grid; gap: 35px; width: calc(100% - 80px);
             align-items: center;
-            grid-template-columns: 500px 1fr 320px; 
             grid-template-columns: 500px 1fr 320px;
         }
 
@@ -101,13 +99,14 @@ if ($charId > 0) {
 </header>
 
 <?php 
-$counter = 0; 
 $counter = 0;
+
 if ($result->num_rows > 0):
     while ($char = $result->fetch_assoc()):
         $counter++;
+
         $skillQuery = $conn->query("SELECT * FROM skills WHERE character_id = " . $char['id']);
-        $skillQuery = $conn->query("SELECT * FROM skills WHERE character_id = " . $char['id']);
+
         $isLayoutLeft = ($counter % 2 != 0); 
 ?>
 
