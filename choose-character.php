@@ -118,7 +118,7 @@ $charsResult = $conn->query($charsQuery);
         
         .skill-item {
             display: flex; align-items: center; gap: 8px;
-            font-size: 12px; color: #fff; font-weight: normal;
+            font-size: 12px; color: black; font-weight: normal;
             cursor: pointer; transition: color 0.3s;
         }
         .skill-item:hover { color: #ffd700; }
