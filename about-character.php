@@ -4,17 +4,14 @@ require_once 'functions/auth.php';
 
 if (!isLoggedIn()) { header('Location: login.php'); exit; }
 
-// Cek apakah ada ID spesifik atau Tampilkan Semua
 $charId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($charId > 0) {
-    // Mode Single: Ambil 1 karakter
     $stmt = $conn->prepare("SELECT * FROM characters WHERE id = ?");
     $stmt->bind_param("i", $charId);
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
-    // Mode All: Ambil SEMUA karakter
     $result = $conn->query("SELECT * FROM characters ORDER BY id ASC");
 }
 ?>
@@ -45,20 +42,18 @@ if ($charId > 0) {
         nav a { color: #fff; text-decoration: none; padding: 8px 18px; font-size: 14px; border-radius: 5px; }
         nav a.active { color: #ffd700; }
 
-        /* --- LAYOUT 1: GAMBAR DI KIRI (Default) --- */
         .content-wrapper {
             max-width: 1200px; margin: 40px auto; background: #ffffff; padding: 35px;
             border-radius: 25px; display: grid; gap: 35px; width: calc(100% - 80px);
             align-items: center; 
-            grid-template-columns: 320px 1fr 500px; /* Gambar - Teks - Skill */
+            grid-template-columns: 320px 1fr 500px;
         }
 
-        /* --- LAYOUT 2: GAMBAR DI KANAN (Alternatif) --- */
         .content-wrapper-second {
             max-width: 1200px; margin: 40px auto; background: #ffffff; padding: 35px;
             border-radius: 25px; display: grid; gap: 35px; width: calc(100% - 80px);
             align-items: center;
-            grid-template-columns: 500px 1fr 320px; /* Skill - Teks - Gambar */
+            grid-template-columns: 500px 1fr 320px;
         }
 
         .portrait {
@@ -71,7 +66,6 @@ if ($charId > 0) {
         
         .description { color: #333; line-height: 1.6; font-size: 15px; margin-bottom: 25px; }
 
-        /* Penyesuaian teks untuk layout kedua */
         .content-wrapper-second .char-title,
         .content-wrapper-second .description { text-align: right; }
 
@@ -87,7 +81,7 @@ if ($charId > 0) {
 
         @media (max-width: 1024px) {
             .content-wrapper, .content-wrapper-second { grid-template-columns: 1fr; }
-            .portrait { height: 400px; order: -1; } /* Gambar selalu di atas di mobile */
+            .portrait { height: 400px; order: -1; }
             .content-wrapper-second .char-title, .content-wrapper-second .description { text-align: left; }
         }
     </style>
@@ -105,16 +99,14 @@ if ($charId > 0) {
 </header>
 
 <?php 
-$counter = 0; // Untuk cek ganjil/genap (layout seling-seling)
+$counter = 0;
 
 if ($result->num_rows > 0):
     while ($char = $result->fetch_assoc()):
         $counter++;
-        
-        // Ambil Skill Karakter Ini
+
         $skillQuery = $conn->query("SELECT * FROM skills WHERE character_id = " . $char['id']);
-        
-        // Cek Layout: Ganjil = Layout Asli (Gambar Kiri), Genap = Layout Kedua (Gambar Kanan)
+
         $isLayoutLeft = ($counter % 2 != 0); 
 ?>
 

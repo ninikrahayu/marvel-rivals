@@ -10,10 +10,8 @@ if (!isLoggedIn()) {
 $levelId = isset($_GET['level_id']) ? intval($_GET['level_id']) : 1;
 $charId = isset($_GET['character_id']) ? intval($_GET['character_id']) : 1;
 
-// 1. Ambil Data Player
 $player = $conn->query("SELECT * FROM characters WHERE id = $charId")->fetch_assoc();
 
-// 2. Ambil Data Level & Musuh
 $levelQuery = "SELECT l.*, c.name as enemy_name, c.base_health as enemy_hp, c.base_energy as enemy_energy, c.portrait_image as enemy_image, c.id as enemy_id 
                FROM levels l JOIN characters c ON l.enemy_character_id = c.id WHERE l.id = $levelId";
 $levelData = $conn->query($levelQuery)->fetch_assoc();
@@ -23,7 +21,6 @@ if (!$player || !$levelData) {
     exit;
 }
 
-// 3. Ambil Skill Player
 $skillsQuery = "SELECT * FROM skills WHERE character_id = $charId ORDER BY id ASC";
 $skillsResult = $conn->query($skillsQuery);
 $playerSkills = [];
@@ -31,7 +28,6 @@ while ($row = $skillsResult->fetch_assoc()) {
     $playerSkills[] = $row;
 }
 
-// 4. Ambil Skill Musuh
 $enemyId = $levelData['enemy_id'];
 $enemySkillsQuery = "SELECT * FROM skills WHERE character_id = $enemyId";
 $enemySkillsResult = $conn->query($enemySkillsQuery);
@@ -58,7 +54,6 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             color: white;
         }
 
-        /* === TOP BAR === */
         .top-bar {
             display: flex; 
             justify-content: space-between; 
@@ -96,7 +91,6 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             color: white;
         }
 
-        /* === BATTLE AREA === */
         .battle-area {
             display: flex; 
             justify-content: space-between; 
@@ -106,7 +100,6 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             gap: 40px;
         }
 
-        /* === BATTLE CARD === */
         .battle-card {
             width: 350px; 
             height: 520px;
@@ -120,8 +113,7 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             flex-direction: column; 
             justify-content: flex-end;
         }
-        
-        /* CARD IMAGE */
+
         .card-img {
             position: absolute; 
             bottom: 0; 
@@ -136,7 +128,6 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
         }
 
-        /* Gradient Overlay */
         .card-gradient {
             position: absolute; 
             bottom: 0; 
@@ -161,8 +152,7 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             margin-bottom: 15px; 
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
-        
-        /* === HP & ENERGY BARS === */
+
         .bar-container { 
             margin-bottom: 12px; 
         }
@@ -203,7 +193,6 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             border-color: #80d4ff; 
         }
 
-        /* === SKILL BUTTONS === */
         .skills-row {
             display: flex; 
             gap: 12px; 
@@ -241,7 +230,6 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             background: #333; 
         }
 
-        /* === TURN SYSTEM === */
         .turn-system { 
             display: flex; 
             flex-direction: column; 
@@ -293,12 +281,10 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             filter: grayscale(0%);
         }
 
-        /* Enemy card image flip */
         .battle-card.enemy .card-img {
             transform: scaleX(-1);
         }
 
-        /* Responsive */
         @media (max-width: 1200px) {
             .battle-area {
                 gap: 20px;
@@ -320,8 +306,7 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
     </div>
 
     <div class="battle-area">
-        
-        <!-- PLAYER CARD -->
+ 
         <div class="battle-card">
             <div class="card-img" style="background-image: url('<?php echo $player['portrait_image']; ?>');"></div>
             <div class="card-gradient"></div>
@@ -346,7 +331,6 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             </div>
         </div>
 
-        <!-- TURN SYSTEM -->
         <div class="turn-system">
             <div class="turn-title">TURN GAME</div>
             <div class="turn-box">
@@ -355,9 +339,8 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             </div>
         </div>
 
-        <!-- ENEMY CARD -->
         <div class="battle-card enemy">
-            <div class="card-img" style="background-image: url('<?php echo $levelData['enemy_image']; ?>');"></div>
+            <div class="card-img" style="background-image: url('<?php echo $levelData['card_image']; ?>');"></div>
             <div class="card-gradient"></div>
 
             <div class="stats-box">
@@ -382,13 +365,11 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
     </div>
     <script>
         const playerMaxHp = <?php echo $player['base_health']; ?>;
-        
-        // --- PERUBAHAN DI SINI: HP MUSUH DIKURANGI 20% ---
+
         const enemyMaxHp = Math.floor(<?php echo $levelData['enemy_hp']; ?> * 0.8);
         
         const maxEnergy = 100;
-        
-        // Data Skill dari PHP ke JS
+
         const heroSkills = <?php echo json_encode($playerSkills); ?>;
         const enemySkillsData = <?php echo json_encode($enemySkills); ?>;
 
@@ -488,7 +469,7 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
             }
 
             playerEnergy -= cost;
-            let damage = baseDamage + Math.floor(Math.random() * 20); // Variasi kecil
+            let damage = baseDamage + Math.floor(Math.random() * 20);
             
             setHpSafe('enemy', enemyHp - damage);
             updateUI();
@@ -502,33 +483,27 @@ while ($row = $enemySkillsResult->fetch_assoc()) {
         }
 
         function enemyAttack() {
-            // Filter skill yang energinya cukup
             const affordableSkills = enemySkillsData.filter(skill => parseInt(skill.energy_cost) <= enemyEnergy);
             
             let damage = 0;
 
             if (affordableSkills.length > 0) {
-                // Pilih skill acak dari yang tersedia
                 const randomSkill = affordableSkills[Math.floor(Math.random() * affordableSkills.length)];
                 
                 const cost = parseInt(randomSkill.energy_cost);
                 const rawDamage = parseInt(randomSkill.damage_value);
-                
-                // Kurangi Energy
+
                 enemyEnergy -= cost;
 
-                // --- PERUBAHAN: DAMAGE MUSUH DIKURANGI 20% ---
                 damage = Math.floor(rawDamage * 0.8);
                 
                 console.log(`Enemy used ${randomSkill.skill_name}: ${damage} dmg (Base: ${rawDamage})`);
 
-                // Efek Visual Serangan
                 const enemyCard = document.querySelectorAll('.battle-card')[1];
                 enemyCard.style.transform = "translateY(10px)";
                 setTimeout(() => enemyCard.style.transform = "translateY(0)", 200);
 
             } else {
-                // Serangan lemah jika energi habis
                 damage = 20;
                 console.log("Enemy used basic weak attack");
             }

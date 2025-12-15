@@ -10,23 +10,20 @@ if (!isLoggedIn()) {
 $currentUser = getCurrentUser();
 $userId = $currentUser['id'];
 
-// 1. Ambil Data Progres User (Level berapa yang sudah kebuka?)
 $progressQuery = "SELECT unlocked_level_id FROM user_progress WHERE user_id = ?";
 $stmt = $conn->prepare($progressQuery);
 $stmt->bind_param("i", $userId);
 $stmt->execute();
 $progressResult = $stmt->get_result();
 
-$unlockedLevelId = 1; // Default level 1 terbuka
+$unlockedLevelId = 1; 
 if ($progressResult->num_rows > 0) {
     $row = $progressResult->fetch_assoc();
     $unlockedLevelId = $row['unlocked_level_id'];
 } else {
-    // Jika user baru dan belum ada data progress, buat data default (Level 1)
     $conn->query("INSERT INTO user_progress (user_id, unlocked_level_id) VALUES ($userId, 1)");
 }
 
-// 2. Ambil Semua Level
 $levelsQuery = "SELECT * FROM levels ORDER BY id ASC";
 $levelsResult = $conn->query($levelsQuery);
 ?>
@@ -87,7 +84,6 @@ $levelsResult = $conn->query($levelsQuery);
             flex-wrap: wrap; max-width: 1200px;
         }
 
-        /* --- LEVEL CARD STYLE --- */
         .level-card {
             width: 300px; height: 550px;
             border-radius: 30px; position: relative;
@@ -126,13 +122,11 @@ $levelsResult = $conn->query($levelsQuery);
 
         .level-card:hover .level-btn { background: #fff; color: #333; }
 
-        /* --- STYLING UNTUK LEVEL TERKUNCI (LOCKED) --- */
         .level-card.locked {
             cursor: not-allowed;
-            border-color: #555; /* Border jadi abu-abu */
+            border-color: #555;
         }
 
-        /* Efek hitam putih & gelap untuk gambar terkunci */
         .level-card.locked .card-image {
             filter: grayscale(100%) brightness(0.4); 
         }
@@ -144,11 +138,10 @@ $levelsResult = $conn->query($levelsQuery);
         }
 
         .level-card.locked:hover {
-            transform: none; /* Tidak gerak saat dihover */
+            transform: none;
             box-shadow: none;
         }
 
-        /* Icon Gembok */
         .lock-icon-container {
             position: absolute;
             top: 50%; left: 50%;
@@ -188,7 +181,6 @@ $levelsResult = $conn->query($levelsQuery);
             <?php if ($levelsResult->num_rows > 0): ?>
                 <?php while($level = $levelsResult->fetch_assoc()): ?>
                     <?php 
-                        // Logika Kunci: Jika ID Level > Level yg Terbuka, maka KUNCI
                         $isLocked = $level['id'] > $unlockedLevelId; 
                     ?>
 

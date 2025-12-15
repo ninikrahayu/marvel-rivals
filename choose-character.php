@@ -9,10 +9,8 @@ if (!isLoggedIn()) {
 
 $currentUser = getCurrentUser();
 
-// Tangkap ID Level dari URL (default ke 1 jika tidak ada)
 $levelId = isset($_GET['level_id']) ? intval($_GET['level_id']) : 1;
 
-// Ambil semua karakter dari database
 $charsQuery = "SELECT * FROM characters";
 $charsResult = $conn->query($charsQuery);
 ?>
@@ -28,7 +26,7 @@ $charsResult = $conn->query($charsQuery);
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 
         body {
-            background: url('assets/backgrounds/character-bg.png') no-repeat center center fixed;
+            background: url('assets/backgrounds/character-bg.png') repeat fixed;
             background-size: cover;
             min-height: 100vh;
             overflow-x: hidden;
@@ -128,7 +126,6 @@ $charsResult = $conn->query($charsQuery);
             border-radius: 50%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        /* Modal Styles */
         .video-modal {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85);
@@ -185,7 +182,6 @@ $charsResult = $conn->query($charsQuery);
                         <div class="skills-container">
                             <div class="skills-grid">
                                 <?php 
-                                // Query Skill per Karakter
                                 $charId = $char['id'];
                                 $skillsQuery = "SELECT * FROM skills WHERE character_id = $charId LIMIT 4";
                                 $skillsResult = $conn->query($skillsQuery);
@@ -223,7 +219,6 @@ $charsResult = $conn->query($charsQuery);
     </main>
 
     <script>
-        // Simpan Level ID dari PHP ke variabel JS
         const currentLevelId = <?php echo $levelId; ?>;
 
         function selectCharacter(name, charId) {
@@ -234,7 +229,6 @@ $charsResult = $conn->query($charsQuery);
                 confirmButtonColor: '#ffd700',
                 confirmButtonText: 'Start Battle'
             }).then(() => {
-                // Redirect ke Battle membawa Level ID dan Character ID
                 window.location.href = `battle.php?level_id=${currentLevelId}&character_id=${charId}`;
             });
         }
@@ -245,7 +239,7 @@ $charsResult = $conn->query($charsQuery);
             const title = document.getElementById('skillTitle');
             
             title.innerText = skillName;
-            videoPlayer.src = videoUrl; // Load video hanya saat diklik
+            videoPlayer.src = videoUrl;
             modal.style.display = 'flex';
             videoPlayer.play();
         }
@@ -256,7 +250,7 @@ $charsResult = $conn->query($charsQuery);
             
             modal.style.display = 'none';
             videoPlayer.pause();
-            videoPlayer.src = ""; // Stop buffering
+            videoPlayer.src = "";
         }
 
         window.onclick = function (event) {
